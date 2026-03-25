@@ -58,6 +58,21 @@ def index():
 # TODO: Section 1 — add your dbTesting code to dbTesting.py (not here)
 
 # TODO: Section 2 — add your /viewdb route here
+@app.route("/viewdb")
+def viewdb():
+    """
+    Fetches the first 20 tracks from the Chinook database
+    and returns them as an HTML table.
+    Route: /viewdb
+    """
+    rows = execute_query("""
+        SELECT ArtistId, Artist.Name, Track.Name, UnitPrice
+        FROM Artist
+        JOIN Album USING (ArtistID)
+        JOIN Track USING (AlbumID)
+        LIMIT 20
+    """)
+    return display_html(rows)
 
 # TODO: Section 2 — add your /artistquery/<artist_id> route here
 
